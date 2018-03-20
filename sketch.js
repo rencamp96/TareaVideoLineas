@@ -5,7 +5,7 @@
  * Adrian Santuario
  * 
  *
- * URL: 
+ * URL: https://rencamp96.github.io/CEW_pixelarrayalo/.
  */
 
 
@@ -31,7 +31,9 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-
+function preload(){
+   video = createVideo("assets/videos/gato.mov");
+}
 
 function setup() {
   createCanvas(displayWidth, displayHeight);
@@ -55,7 +57,6 @@ function draw() {
 
 function initilizeVideo() {
 
-  video = createVideo("assets/videos/gato.mov");
   video.loop();
   video.hide();
 
