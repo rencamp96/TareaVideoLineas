@@ -1,11 +1,11 @@
 /*
  *
  * Cinema Expandido WEB
- * Tarea Pixel Array (19 de marzo 2018)
+ * Tarea Pixel Array (10 de abril 2018)
  * Renata Campuzano
  * 
  *
- * URL: https://rencamp96.github.io/CEW_pixelarrayalo/.
+ * URL: https://rencamp96.github.io/TareaVideoLineas/
  */
 
 
