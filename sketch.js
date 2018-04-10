@@ -68,8 +68,9 @@ function drawVideoNose() {
   var correctionY = (windowHeight / 2) - video.height / 2;
 
   video.loadPixels();
-  var stepSize = 25;
-  var col = round(map(mouseX, 0, windowHeight, -100, 20));
+  var stepSize = 40;
+  var mouseX2 = round(map(mouseX, 0, windowWidth, 0, 608));
+  var mouseY2 = round(map(mouseY, 0, windowHeight, 0,480));
   background(0);
 
   for (var y = 0; y < video.height; y += stepSize) {
@@ -77,15 +78,18 @@ function drawVideoNose() {
     for (var x = 0; x < video.width; x += stepSize) {
       var index = (x + y * video.width) * 4;
 
-      var darkness = (255 - video.pixels[index]) / 255;
-      var radio = stepSize * darkness;
+      var darkness = (250 - video.pixels[index]) / 100;
+      var radio = 3;
       noStroke();
-      fill(video.pixels[index] + col, video.pixels[index + 1] + col, video.pixels[index + 2] + col);
-      if (mouseY <= windowHeight / 2) {
-        rect(x, y, radio, radio);;
-      } else {
-        ellipse(x, y, radio, radio);;
-      }
+      fill(video.pixels[index] , video.pixels[index + 1], video.pixels[index + 2] );
+      //triangle(x, y, x + (radio), y - radio, x, y - radio);;
+      triangle(mouseX, mouseY, x + radio/2, y, x - radio/2,y + radio);
+      triangle(608-mouseX2, 480-mouseY2, x + radio/2, y, x - radio/2,y + radio);
+      triangle(mouseX, 480-mouseY2, x + radio/2, y, x - radio/2,y + radio);
+      triangle(608-mouseX2, mouseY, x + radio/2, y, x - radio/2,y + radio);
+    
+
+
     }
   }
 }
