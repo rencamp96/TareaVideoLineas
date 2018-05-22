@@ -16,8 +16,11 @@
  *****************************************
  *****************************************
  */
+ var video;
+ 
+var angle =0;
 
-var video;
+var isLoading = false;
 
 /*
  *****************************************
@@ -27,69 +30,53 @@ var video;
  *****************************************
  */
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
+
 
 function preload() {
-  video = createVideo("assets/videos/colores.mov");
+  
+}
+
+function windowResized(){
+ resizeCanvas(windowWidth,windowHeight);
 }
 
 function setup() {
-  createCanvas(displayWidth, displayHeight);
-  initilizeVideo();
+  createCanvas(windowWidth,windowHeight);
+  initializeVideo();
+
 }
 
 function draw() {
-  background(250);
-  drawVideoNose();
-  //toggleVideo();
+  if (isLoading == true){
+    drawVideo();
+  } else{
+  drawLoading();
+  }
+
 }
 
+function initializeVideo(){
+  video = createVideo("assets/videos/centro.mov",videoLoaded);
+}
 
-/*
- *****************************************
- *****************************************
- * VIDEO METHODS
- *****************************************
- *****************************************
- */
-
-function initilizeVideo() {
-
+function videoLoaded(){
+  isLoading = true;
   video.loop();
   video.hide();
 
 }
 
-
-function drawVideoNose() {
-  var correctionX = (windowWidth / 2) - video.width / 2;
-  var correctionY = (windowHeight / 2) - video.height / 2;
-
-  video.loadPixels();
-  var stepSize = 40;
-  var mouseX2 = round(map(mouseX, 0, windowWidth, 0, 608));
-  var mouseY2 = round(map(mouseY, 0, windowHeight, 0,480));
-  background(0);
-
-  for (var y = 0; y < video.height; y += stepSize) {
-
-    for (var x = 0; x < video.width; x += stepSize) {
-      var index = (x + y * video.width) * 4;
-
-      var darkness = (250 - video.pixels[index]) / 100;
-      var radio = 3;
-      noStroke();
-      fill(video.pixels[index] , video.pixels[index + 1], video.pixels[index + 2] );
-      //triangle(x, y, x + (radio), y - radio, x, y - radio);;
-      triangle(mouseX, mouseY, x + radio/2, y, x - radio/2,y + radio);
-      triangle(608-mouseX2, 480-mouseY2, x + radio/2, y, x - radio/2,y + radio);
-      triangle(mouseX, 480-mouseY2, x + radio/2, y, x - radio/2,y + radio);
-      triangle(608-mouseX2, mouseY, x + radio/2, y, x - radio/2,y + radio);
-    
-
-
-    }
-  }
+function drawVideo(){
+  image(video,0,0);
 }
+
+function drawLoading(){
+  background(255,210,210);
+  translate(windowWidth/2,windowHeight/2);
+  rotate(angle);
+  strokeWeight(10);
+  stroke(255,160,160);
+  line(0,0,100,100);
+  angle += 0.1;
+}
+
